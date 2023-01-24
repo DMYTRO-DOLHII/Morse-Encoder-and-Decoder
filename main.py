@@ -9,6 +9,8 @@
 
 from telebot import TeleBot
 from telebot import types
+
+import morse
 from morse import *
 
 TOKEN = "5868626838:AAHYrddsF8mkph3pCzc0FlPourojxT3-1uo"
@@ -23,8 +25,13 @@ def send_welcome(message):
 
 
 @bot.message_handler(content_types=['voice'])
-def get_voice(message):
-    pass
+def voice_processing(message):
+    file_info = bot.get_file(message.voice.file_id)
+    downloaded_file = bot.download_file(file_info.file_path)
+    with open('to_decode.wav', 'wb') as new_file:
+        new_file.write(downloaded_file)
+
+    bot.send_message(message.chat.id, "I have decode your voice as : " + to_latin(decode_morse("to_decode.wav")))
 
 
 @bot.message_handler(func=lambda message: True)

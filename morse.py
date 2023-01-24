@@ -77,8 +77,8 @@ def decode_morse(audio_file):
         data = file.readframes(-1)
         data = np.fromstring(data, dtype=np.int16)
         # Plot the audio data
-        plt.plot(data)
-        plt.show()
+        # plt.plot(data)
+        # plt.show()
 
     # Define threshold for detecting a beep
     threshold = np.mean(data)
